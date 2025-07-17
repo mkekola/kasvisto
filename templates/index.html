@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Kasvisto</title>
+  </head>
 
-<head>
-  <title>Kasvisto</title>
-</head>
-
-<body>
-    <h1>Kasvisto</h1>
+  <body>
+    <h1>Kasvisto🪴</h1>
 
     {% if session.username %}
-    <p>
-      Olet kirjautunut nimellä {{ session.username }}
-    </p>
+    <p>Olet kirjautunut nimellä {{ session.username }}</p>
     {% endif %}
 
     <p>
@@ -20,6 +17,11 @@
     <p>
       <a href="/login">Kirjaudu</a>
     </p>
-</body>
-
+    <p>
+      <a href="/logout">Kirjaudu ulos</a>
+    </p>
+    <p>
+      <a href="/new_plant">Uusi kasvi</a>
+    </p>
+  </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uusi kasvi</title>
+  </head>
+
+  <body>
+    <h1>Uusi kasvi🪴</h1>
+    <form action="/create_plant" method="post">
+      <p>
+        Kasvin nimi: <br />
+        <input type="text" name="plant_name" />
+      </p>
+      <p>
+        Kasvin valontarve: <br />
+        <input type="radio" name="light" value="Varjo" /> Varjo
+        <input type="radio" name="light" value="Puolivarjo" /> Puolivarjo
+        <input type="radio" name="light" value="Aurinko" /> Aurinko
+      </p>
+      <p>
+        Kasvin hoitotiedot: <br />
+        <textarea name="care_info" rows="8" cols="60">
+Esim. säännöllinen kastelu kertaviikkoon, lannoitus keväällä</textarea
+        >
+      </p>
+      <input type="submit" value="Luo kasvi" />
+    </form>
+  </body>
+</html>
