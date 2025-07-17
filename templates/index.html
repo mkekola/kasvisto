@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kasvisto</title>
+</head>
+
+<body>
+    <h1>Kasvisto</h1>
+
+    {% if session.username %}
+    <p>
+      Olet kirjautunut nimellä {{ session.username }}
+    </p>
+    {% endif %}
+
+    <p>
+      <a href="/register">Rekisteröidy</a>
+    </p>
+    <p>
+      <a href="/login">Kirjaudu</a>
+    </p>
+</body>
+
+</html>
