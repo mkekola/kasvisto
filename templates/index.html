@@ -23,5 +23,14 @@
     <p>
       <a href="/new_plant">Uusi kasvi</a>
     </p>
+
+    <h2>Kasvit</h2>
+    <ul>
+      {%for plant in plants %}
+      <li>
+        <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

@@ -11,7 +11,13 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_plants = plants.get_plants()
+    return render_template("index.html", plants=all_plants)
+
+@app.route("/plant/<int:plant_id>")
+def show_plant(plant_id):
+    plant = plants.get_plant(plant_id)
+    return render_template("show_plant.html", plant=plant)
 
 @app.route("/new_plant")
 def new_plant():
