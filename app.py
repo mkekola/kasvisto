@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
+import plants
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -23,8 +24,7 @@ def create_plant():
     care_info = request.form["care_info"]
     user_id = session["user_id"]
 
-    sql = "INSERT INTO plants (plant_name, light, care_info, user_id) VALUES (?, ?, ?, ?)"
-    db.execute(sql, [plant_name, light, care_info, user_id])
+    plants.add_plant(plant_name, light, care_info, user_id)
 
     return redirect("/")
 
