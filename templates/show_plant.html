@@ -6,6 +6,11 @@
 
   <body>
     <h1>{{ plant.plant_name }} 🪴</h1>
+    {% if session.user_id == plant.user_id %}
+    <p>
+      <a href="/edit_plant/{{ plant.id }}">Muokkaa kasvia</a>
+    </p>
+    {% endif %}
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
     <p><strong>Hoitotiedot:</strong></p>
     <p>{{ plant.care_info }}</p>

@@ -4,24 +4,28 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
-import plants
+import plants as plants
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
+
 
 @app.route("/")
 def index():
     all_plants = plants.get_plants()
     return render_template("index.html", plants=all_plants)
 
+
 @app.route("/plant/<int:plant_id>")
 def show_plant(plant_id):
     plant = plants.get_plant(plant_id)
     return render_template("show_plant.html", plant=plant)
 
+
 @app.route("/new_plant")
 def new_plant():
     return render_template("new_plant.html")
+
 
 @app.route("/create_plant", methods=["POST"])
 def create_plant():
@@ -34,9 +38,29 @@ def create_plant():
 
     return redirect("/")
 
+
+@app.route("/edit_plant/<int:plant_id>")
+def edit_plant(plant_id):
+    plant = plants.get_plant(plant_id)
+    return render_template("edit_plant.html", plant=plant)
+
+
+@app.route("/update_plant", methods=["POST"])
+def update_plant():
+    plant_id = request.form["plant_id"]
+    plant_name = request.form["plant_name"]
+    light = request.form["light"]
+    care_info = request.form["care_info"]
+
+    plants.update_plant(plant_id, plant_name, light, care_info)
+
+    return redirect("/plant/" + str(plant_id))
+
+
 @app.route("/register")
 def register():
     return render_template("register.html")
+
 
 @app.route("/create", methods=["POST"])
 def create():
@@ -55,11 +79,12 @@ def create():
 
     return "Tunnus luotu"
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return render_template("login.html")
-    
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -75,6 +100,7 @@ def login():
             return redirect("/")
         else:
             return "VIRHE: väärä tunnus tai salasana"
+
 
 @app.route("/logout")
 def logout():

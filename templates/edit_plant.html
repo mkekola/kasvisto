@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kasvin muokkaus</title>
+  </head>
+
+  <body>
+    <h1>Kasvin muokkaus🪴</h1>
+    <form action="/update_plant" method="post">
+      <p>
+        Kasvin nimi: <br />
+        <input type="text" name="plant_name" value="{{ plant.plant_name }}" />
+      </p>
+      <p>
+        Kasvin valontarve: <br />
+        <input type="radio" name="light" value="Varjo" {% if plant.light ==
+        "Varjo" %}checked{% endif %} /> Varjo <input type="radio" name="light"
+        value="Puolivarjo" {% if plant.light == "Puolivarjo" %}checked{% endif
+        %} /> Puolivarjo <input type="radio" name="light" value="Aurinko" {% if
+        plant.light == "Aurinko" %}checked{% endif %} /> Aurinko
+      </p>
+      <p>
+        Kasvin hoitotiedot: <br />
+        <textarea name="care_info" rows="8" cols="60">{{ plant.care_info }}</textarea>
+      </p>
+      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+      <input type="submit" value="Muokkaa kasvia" />
+    </form>
+  </body>
+</html>
