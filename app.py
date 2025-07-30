@@ -48,8 +48,14 @@ def new_plant():
 def create_plant():
     require_login()
     plant_name = request.form["plant_name"]
+    if not plant_name or len(plant_name) > 50:
+        abort(403)
     light = request.form["light"]
+    if not light:
+        abort(403)
     care_info = request.form["care_info"]
+    if not care_info or len(care_info) > 500:
+        abort(403)
     user_id = session["user_id"]
 
     plants.add_plant(plant_name, light, care_info, user_id)

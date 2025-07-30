@@ -9,19 +9,24 @@
     <form action="/create_plant" method="post">
       <p>
         Kasvin nimi: <br />
-        <input type="text" name="plant_name" />
+        <input type="text" name="plant_name" maxlength="50" required />
       </p>
       <p>
         Kasvin valontarve: <br />
-        <input type="radio" name="light" value="Varjo" /> Varjo
-        <input type="radio" name="light" value="Puolivarjo" /> Puolivarjo
-        <input type="radio" name="light" value="Aurinko" /> Aurinko
+        <input type="radio" name="light" value="Varjo"  required /> Varjo
+        <input type="radio" name="light" value="Puolivarjo" required /> Puolivarjo
+        <input type="radio" name="light" value="Aurinko" required /> Aurinko
       </p>
       <p>
         Kasvin hoitotiedot: <br />
-        <textarea name="care_info" rows="8" cols="60">
-Esim. säännöllinen kastelu kertaviikkoon, lannoitus keväällä</textarea
-        >
+        <textarea
+          name="care_info"
+          rows="8"
+          cols="60"
+          placeholder="Esim. säännöllinen kastelu kertaviikkoon, lannoitus keväällä"
+          maxlength="500"
+          required
+        ></textarea>
       </p>
       <input type="submit" value="Luo kasvi" />
     </form>
