@@ -26,9 +26,9 @@ def get_plant(plant_id):
 
 
 def update_plant(plant_id, plant_name, light, care_info):
-    sql = """UPDATE plants  SET plant_name = ?, 
-                                light = ?, 
-                                care_info = ? 
+    sql = """UPDATE plants  SET plant_name = ?,
+                                light = ?,
+                                care_info = ?
                             WHERE id = ?"""
     db.execute(sql, [plant_name, light, care_info, plant_id])
 
@@ -37,7 +37,7 @@ def delete_plant(plant_id):
     db.execute(sql, [plant_id])
 
 def find_plants(query):
-    sql = """SELECT plants.id, 
+    sql = """SELECT plants.id,
                     plants.plant_name,
                     plants.care_info
              FROM plants

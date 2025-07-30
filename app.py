@@ -4,7 +4,7 @@ from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
-import plants as plants
+import plants
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -93,8 +93,7 @@ def delete_plant(plant_id):
         if "delete" in request.form:
             plants.delete_plant(plant_id)
             return redirect("/")
-        else:
-            return redirect("/plant/" + str(plant_id))
+        return redirect("/plant/" + str(plant_id))
 
 
 @app.route("/register")
@@ -140,12 +139,12 @@ def login():
             session["user_id"] = user_id
             session["username"] = username
             return redirect("/")
-        else:
-            return "VIRHE: väärä tunnus tai salasana"
+        return "VIRHE: väärä tunnus tai salasana"
 
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
