@@ -30,3 +30,7 @@ def update_plant(plant_id, plant_name, light, care_info):
                                 care_info = ? 
                             WHERE id = ?"""
     db.execute(sql, [plant_name, light, care_info, plant_id])
+
+def delete_plant(plant_id):
+    sql = "DELETE FROM plants WHERE id = ?"
+    db.execute(sql, [plant_id])

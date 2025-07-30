@@ -56,6 +56,19 @@ def update_plant():
 
     return redirect("/plant/" + str(plant_id))
 
+@app.route("/delete_plant/<int:plant_id>", methods=["GET", "POST"])
+def delete_plant(plant_id):
+    if request.method == "GET":
+        plant = plants.get_plant(plant_id)
+        return render_template("delete_plant.html", plant=plant)
+
+    if request.method == "POST":
+        if "delete" in request.form:
+            plants.delete_plant(plant_id)
+            return redirect("/")
+        else:
+            return redirect("/plant/" + str(plant_id))
+
 
 @app.route("/register")
 def register():
