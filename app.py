@@ -9,6 +9,9 @@ import plants
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 @app.route("/")
 def index():
@@ -37,11 +40,13 @@ def show_plant(plant_id):
 
 @app.route("/new_plant")
 def new_plant():
+    require_login()
     return render_template("new_plant.html")
 
 
 @app.route("/create_plant", methods=["POST"])
 def create_plant():
+    require_login()
     plant_name = request.form["plant_name"]
     light = request.form["light"]
     care_info = request.form["care_info"]
@@ -54,6 +59,7 @@ def create_plant():
 
 @app.route("/edit_plant/<int:plant_id>")
 def edit_plant(plant_id):
+    require_login()
     plant = plants.get_plant(plant_id)
     if not plant:
         abort(404)
@@ -64,6 +70,7 @@ def edit_plant(plant_id):
 
 @app.route("/update_plant", methods=["POST"])
 def update_plant():
+    require_login()
     plant_id = request.form["plant_id"]
     plant = plants.get_plant(plant_id)
     if not plant:
@@ -81,6 +88,7 @@ def update_plant():
 
 @app.route("/delete_plant/<int:plant_id>", methods=["GET", "POST"])
 def delete_plant(plant_id):
+    require_login()
     if request.method == "GET":
         plant = plants.get_plant(plant_id)
         if not plant:

@@ -9,18 +9,21 @@
 
     {% if session.username %}
     <p>Olet kirjautunut nimellä {{ session.username }}</p>
+    <p>
+      <input type="button" value="Kirjaudu ulos" onclick="window.location.href='/logout'" />
+    </p>
+    <p>
+      <input type="button" value="Lisää uusi kasvi" onclick="window.location.href='/new_plant'" />
+    </p>
+    {% else %}
+    <p>
+      <input type="button" value="Rekisteröidy" onclick="window.location.href='/register'" />
+      <input type="button" value="Kirjaudu" onclick="window.location.href='/login'" />
+    </p>
     {% endif %}
 
-    <p>
-      <a href="/register">Rekisteröidy</a>
-      <a href="/login">Kirjaudu</a>
-      <a href="/logout">Kirjaudu ulos</a>
-    </p>
-    <p>
-      <a href="/new_plant">Uusi kasvi</a>
-      <a href="/find_plant">Etsi kasvi</a>
-    </p>
-
+    <input type="button" value="Etsi kasvi" onclick="window.location.href='/find_plant'" />
+    
     <h2>Kasvit</h2>
     <ul>
       {%for plant in plants %}
