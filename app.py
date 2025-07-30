@@ -16,6 +16,17 @@ def index():
     return render_template("index.html", plants=all_plants)
 
 
+@app.route("/find_plant")
+def find_plant():
+    query = request.args.get("query")
+    if query:
+        results = plants.find_plants(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_plant.html", query=query, results=results)
+
+
 @app.route("/plant/<int:plant_id>")
 def show_plant(plant_id):
     plant = plants.get_plant(plant_id)
@@ -55,6 +66,7 @@ def update_plant():
     plants.update_plant(plant_id, plant_name, light, care_info)
 
     return redirect("/plant/" + str(plant_id))
+
 
 @app.route("/delete_plant/<int:plant_id>", methods=["GET", "POST"])
 def delete_plant(plant_id):

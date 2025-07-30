@@ -34,3 +34,13 @@ def update_plant(plant_id, plant_name, light, care_info):
 def delete_plant(plant_id):
     sql = "DELETE FROM plants WHERE id = ?"
     db.execute(sql, [plant_id])
+
+def find_plants(query):
+    sql = """SELECT plants.id, 
+                    plants.plant_name,
+                    plants.care_info
+             FROM plants
+             WHERE plants.plant_name LIKE ? OR plants.care_info LIKE ?
+             ORDER BY id DESC"""
+    like = "%" + query + "%"
+    return db.query(sql, [like, like])

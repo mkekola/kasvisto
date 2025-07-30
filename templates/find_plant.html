@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etsi kasvi</title>
+  </head>
+
+  <body>
+    <h1>Etsi kasvi🪴</h1>
+    <form action="/find_plant" method="get">
+        <p>
+            Hakusana: <input type=""text" name="query" value="{{ query }}">
+        </p>
+        <input type="submit" value="Etsi">
+    </form>
+
+    <p>
+        <a href="/">Takaisin etusivulle</a>
+    </p>
+    {% if query %}
+        <h2>Hakutulokset</h2>
+        <ul>
+            {% for plant in results %}
+                <li>
+                    <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  </body>
+</html>
