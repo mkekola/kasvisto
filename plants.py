@@ -21,7 +21,8 @@ def get_plant(plant_id):
               FROM plants, users 
               WHERE plants.user_id = users.id AND 
                     plants.id = ?"""
-    return db.query(sql, [plant_id])[0]
+    result = db.query(sql, [plant_id])
+    return result[0] if result else None
 
 
 def update_plant(plant_id, plant_name, light, care_info):

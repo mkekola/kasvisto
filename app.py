@@ -30,6 +30,8 @@ def find_plant():
 @app.route("/plant/<int:plant_id>")
 def show_plant(plant_id):
     plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
     return render_template("show_plant.html", plant=plant)
 
 
@@ -53,6 +55,8 @@ def create_plant():
 @app.route("/edit_plant/<int:plant_id>")
 def edit_plant(plant_id):
     plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
     if plant["user_id"] != session["user_id"]:
         abort(403)
     return render_template("edit_plant.html", plant=plant)
@@ -61,6 +65,9 @@ def edit_plant(plant_id):
 @app.route("/update_plant", methods=["POST"])
 def update_plant():
     plant_id = request.form["plant_id"]
+    plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
     if plants.get_plant(plant_id)["user_id"] != session["user_id"]:
         abort(403)
     plant_name = request.form["plant_name"]
@@ -76,6 +83,8 @@ def update_plant():
 def delete_plant(plant_id):
     if request.method == "GET":
         plant = plants.get_plant(plant_id)
+        if not plant:
+            abort(404)
         if plant["user_id"] != session["user_id"]:
             abort(403)
         return render_template("delete_plant.html", plant=plant)
