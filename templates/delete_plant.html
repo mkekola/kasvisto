@@ -6,12 +6,24 @@
 
   <body>
     <h1>Kasvin poistaminen ❌</h1>
-    <p>Haluatko varmasti poistaa kasvin: <strong>{{ plant.plant_name }}</strong>?</p>
+    <p>
+      Haluatko varmasti poistaa kasvin: <strong>{{ plant.plant_name }}</strong>?
+    </p>
     <form action="/delete_plant/{{ plant.id }}" method="post">
-        <p>
-            <input type="submit" name="delete" style="background-color: red; color: white;" value="Kyllä, poista kasvi" />
-            <input type="button" name="cancel" value="Peruuta" onclick="window.location.href='/'" />
-        </p>
+      <p>
+        <input
+          type="submit"
+          name="delete"
+          style="background-color: red; color: white"
+          value="Kyllä, poista kasvi"
+        />
+        <input
+          type="button"
+          name="cancel"
+          value="Peruuta"
+          onclick="window.location.href='/'"
+        />
+      </p>
     </form>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
@@ -53,12 +53,16 @@ def create_plant():
 @app.route("/edit_plant/<int:plant_id>")
 def edit_plant(plant_id):
     plant = plants.get_plant(plant_id)
+    if plant["user_id"] != session["user_id"]:
+        abort(403)
     return render_template("edit_plant.html", plant=plant)
 
 
 @app.route("/update_plant", methods=["POST"])
 def update_plant():
     plant_id = request.form["plant_id"]
+    if plants.get_plant(plant_id)["user_id"] != session["user_id"]:
+        abort(403)
     plant_name = request.form["plant_name"]
     light = request.form["light"]
     care_info = request.form["care_info"]
@@ -72,6 +76,8 @@ def update_plant():
 def delete_plant(plant_id):
     if request.method == "GET":
         plant = plants.get_plant(plant_id)
+        if plant["user_id"] != session["user_id"]:
+            abort(403)
         return render_template("delete_plant.html", plant=plant)
 
     if request.method == "POST":
@@ -102,7 +108,9 @@ def create():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu"
+    return "Tunnus luotu" + \
+           "<br><a href='/login'>Kirjaudu sisään</a>"
+
 
 
 @app.route("/login", methods=["GET", "POST"])
