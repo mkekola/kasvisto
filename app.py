@@ -84,9 +84,14 @@ def update_plant():
     if plants.get_plant(plant_id)["user_id"] != session["user_id"]:
         abort(403)
     plant_name = request.form["plant_name"]
+    if not plant_name or len(plant_name) > 50:
+        abort(403)
     light = request.form["light"]
+    if not light:
+        abort(403)
     care_info = request.form["care_info"]
-
+    if not care_info or len(care_info) > 500:
+        abort(403)
     plants.update_plant(plant_id, plant_name, light, care_info)
 
     return redirect("/plant/" + str(plant_id))
