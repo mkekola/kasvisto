@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
 import plants
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -18,6 +19,13 @@ def index():
     all_plants = plants.get_plants()
     return render_template("index.html", plants=all_plants)
 
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    plants = users.get_plants(user_id)
+    return render_template("show_user.html", user=user, plants=plants)
 
 @app.route("/find_plant")
 def find_plant():

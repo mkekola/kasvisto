@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Käyttäjä {{ user.username }}</title>
+  </head>
+
+  <body>
+    <h1>Käyttäjä {{ user.username }}</h1>
+    <p>
+        Käyttäjällä on yhteensä {{ plants | count }} kasvia.
+    </p>
+    <h2>Kasvit</h2>
+    <ul>
+      {% for plant in plants %}
+      <li>
+        <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <p><a href="/">Takaisin</a></p>
+  </body>
+</html>

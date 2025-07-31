@@ -15,7 +15,10 @@
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
     <p><strong>Hoitotiedot:</strong></p>
     <p>{{ plant.care_info }}</p>
-    <p><strong>Lisätty käyttäjältä:</strong> {{ plant.username }}</p>
+    <p>
+      <strong>Lisätty käyttäjältä:</strong>
+      <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
+    </p>
     <p><a href="/">Takaisin</a></p>
   </body>
 </html>
