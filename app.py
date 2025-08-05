@@ -139,8 +139,7 @@ def create_user():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu" + \
-              "<br><a href='/login'>Kirjaudu sisään</a>"
+    return redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
