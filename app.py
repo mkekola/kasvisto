@@ -129,7 +129,11 @@ def register():
 @app.route("/create", methods=["POST"])
 def create_user():
     username = request.form["username"]
+    if not username or len(username) > 20:
+        return "VIRHE: tunnus on liian pitkä tai tyhjä"
     password1 = request.form["password1"]
+    if not password1:
+        return "VIRHE: salasana on tyhjä"
     password2 = request.form["password2"]
     if password1 != password2:
         return "VIRHE: salasanat eivät ole samat"
@@ -149,7 +153,11 @@ def login():
 
     if request.method == "POST":
         username = request.form["username"]
+        if not username:
+            return "VIRHE: tunnus on tyhjä"
         password = request.form["password"]
+        if not password:
+            return "VIRHE: salasana on tyhjä"
 
         user_id = users.authenticate_user(username, password)
 
