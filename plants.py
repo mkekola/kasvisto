@@ -1,5 +1,6 @@
 import db
 
+
 def get_categories():
     sql = "SELECT category FROM categories ORDER BY id"
     result = db.query(sql)
@@ -23,7 +24,12 @@ def get_category_by_id(plant_id=None):
 
 
 def get_plants():
-    sql = "SELECT id, plant_name FROM plants ORDER BY id DESC"
+    sql = """SELECT plants.id, 
+                    plants.plant_name, 
+                    users.id user_id, 
+                    users.username 
+                FROM plants JOIN users ON plants.user_id = users.id 
+                ORDER BY plants.id DESC"""
     return db.query(sql)
 
 

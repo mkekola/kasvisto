@@ -28,7 +28,11 @@
     <ul>
       {% for plant in plants %}
       <li>
-        <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+        <a href="/plant/{{ plant.id }}"><strong>{{ plant.plant_name }}</strong></a>
+        <p>
+        Käyttäjältä:
+        <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
+        </p>
       </li>
       {% endfor %}
     </ul>
