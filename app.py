@@ -41,7 +41,8 @@ def show_plant(plant_id):
     plant = plants.get_plant(plant_id)
     if not plant:
         abort(404)
-    return render_template("show_plant.html", plant=plant)
+    categories = plants.get_categories(plant_id)
+    return render_template("show_plant.html", plant=plant, categories=categories)
 
 
 @app.route("/new_plant")
@@ -64,7 +65,11 @@ def create_plant():
         abort(403)
     user_id = session["user_id"]
 
-    plants.add_plant(plant_name, light, care_info, user_id)
+    classes = []
+    if category := request.form["category"]:
+        classes.append(category)
+
+    plants.add_plant(plant_name, light, care_info, user_id, classes)
 
     return redirect("/")
 

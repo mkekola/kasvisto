@@ -15,6 +15,14 @@
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
     <p><strong>Hoitotiedot:</strong></p>
     <p>{{ plant.care_info }}</p>
+    {% if categories %}
+    <p><strong>Luokat:</strong>
+      <ul>
+        {% for category in categories %}
+        <li>{{ category.category }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     <p>
       <strong>Lisätty käyttäjältä:</strong>
       <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>

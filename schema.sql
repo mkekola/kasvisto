@@ -11,3 +11,9 @@ CREATE TABLE plants (
     care_info TEXT,
     user_id INTEGER REFERENCES users
 );
+
+CREATE TABLE plant_categories (
+    id INTEGER PRIMARY KEY,
+    plant_id INTEGER REFERENCES plants,
+    category TEXT
+);
