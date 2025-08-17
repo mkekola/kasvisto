@@ -1,19 +1,26 @@
 import db
 
+def get_categories():
+    sql = "SELECT category FROM categories ORDER BY id"
+    result = db.query(sql)
+    return result
 
-def add_plant(plant_name, light, care_info, user_id, classes):
+
+def add_plant(plant_name, light, care_info, user_id, categories):
     sql = "INSERT INTO plants (plant_name, light, care_info, user_id) VALUES (?, ?, ?, ?)"
     db.execute(sql, [plant_name, light, care_info, user_id])
 
     plant_id = db.last_insert_id()
 
     sql = "INSERT INTO plant_categories (plant_id, category) VALUES (?, ?)"
-    for category in classes:
+    for category in categories:
         db.execute(sql, [plant_id, category])
 
-def get_categories(plant_id):
+
+def get_category_by_id(plant_id=None):
     sql = "SELECT category FROM plant_categories WHERE plant_id = ?"
     return db.query(sql, [plant_id])
+
 
 def get_plants():
     sql = "SELECT id, plant_name FROM plants ORDER BY id DESC"
@@ -41,9 +48,13 @@ def update_plant(plant_id, plant_name, light, care_info):
                             WHERE id = ?"""
     db.execute(sql, [plant_name, light, care_info, plant_id])
 
+
 def delete_plant(plant_id):
+    sql0 = "DELETE FROM plant_categories WHERE plant_id = ?"
+    db.execute(sql0, [plant_id])
     sql = "DELETE FROM plants WHERE id = ?"
     db.execute(sql, [plant_id])
+
 
 def find_plants(query):
     sql = """SELECT plants.id,

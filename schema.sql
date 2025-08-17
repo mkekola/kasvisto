@@ -12,6 +12,11 @@ CREATE TABLE plants (
     user_id INTEGER REFERENCES users
 );
 
+CREATE TABLE categories (
+    id INTEGER PRIMARY KEY,
+    category TEXT
+);
+
 CREATE TABLE plant_categories (
     id INTEGER PRIMARY KEY,
     plant_id INTEGER REFERENCES plants,

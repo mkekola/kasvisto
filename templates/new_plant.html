@@ -13,8 +13,9 @@
       </p>
       <p>
         Kasvin valontarve: <br />
-        <input type="radio" name="light" value="Varjo"  required /> Varjo
-        <input type="radio" name="light" value="Puolivarjo" required /> Puolivarjo
+        <input type="radio" name="light" value="Varjo" required /> Varjo
+        <input type="radio" name="light" value="Puolivarjo" required />
+        Puolivarjo
         <input type="radio" name="light" value="Aurinko" required /> Aurinko
       </p>
       <p>
@@ -29,15 +30,13 @@
         ></textarea>
       </p>
       <p>
-        Luokka: <br />
-        <select name="category" required>
-          <option value="" disabled selected>Valitse luokka</option>
-          <option value="Sisäkasvi">Sisäkasvi</option>
-          <option value="Ulkoilmakasvi">Ulkoilmakasvi</option>
-          <option value="Yrtit">Yrtit</option>
-          <option value="Kaktukset">Kaktukset</option>
-          <option value="Palmu">Palmu</option>
-          <option value="Muut">Muut</option>
+        Valitse luokka: <br />
+        <select name="categories" required>
+          {% for category in categories %}
+          <option value="{{ category.category }}">
+            {{ category.category }}
+          </option>
+          {% endfor %}
         </select>
       </p>
       <input type="submit" value="Luo kasvi" />

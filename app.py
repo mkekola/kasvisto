@@ -41,14 +41,19 @@ def show_plant(plant_id):
     plant = plants.get_plant(plant_id)
     if not plant:
         abort(404)
-    categories = plants.get_categories(plant_id)
+    categories = plants.get_category_by_id(plant_id)
+    if not categories:
+        categories = []
+    else:
+        categories = [category["category"] for category in categories]
     return render_template("show_plant.html", plant=plant, categories=categories)
 
 
 @app.route("/new_plant")
 def new_plant():
     require_login()
-    return render_template("new_plant.html")
+    categories = plants.get_categories()
+    return render_template("new_plant.html", categories=categories)
 
 
 @app.route("/create_plant", methods=["POST"])
@@ -65,11 +70,16 @@ def create_plant():
         abort(403)
     user_id = session["user_id"]
 
-    classes = []
-    if category := request.form["category"]:
-        classes.append(category)
+    selected_categories = []
+    categories = request.form.getlist("categories")
 
-    plants.add_plant(plant_name, light, care_info, user_id, classes)
+    if not categories:
+        abort(403)
+
+    for cat in categories:
+        selected_categories.append(cat)
+
+    plants.add_plant(plant_name, light, care_info, user_id, selected_categories)
 
     return redirect("/")
 
