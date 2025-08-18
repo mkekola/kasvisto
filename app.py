@@ -92,7 +92,13 @@ def edit_plant(plant_id):
         abort(404)
     if plant["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_plant.html", plant=plant)
+    all_categories = plants.get_categories()
+    plant_categories = plants.get_category_by_id(plant_id)
+    if not plant_categories:
+        plant_categories = []
+    else:
+        plant_categories = [category["category"] for category in plant_categories]
+    return render_template("edit_plant.html", plant=plant, all_categories=all_categories, plant_categories=plant_categories)
 
 
 @app.route("/update_plant", methods=["POST"])
@@ -113,8 +119,12 @@ def update_plant():
     care_info = request.form["care_info"]
     if not care_info or len(care_info) > 500:
         abort(403)
-    plants.update_plant(plant_id, plant_name, light, care_info)
-
+    all_categories = [category["category"] for category in plants.get_categories()]
+    categories = []
+    for category in request.form.getlist("categories"):
+        if category in all_categories:
+            categories.append(category)
+    plants.update_plant(plant_id, plant_name, light, care_info, categories)
     return redirect("/plant/" + str(plant_id))
 
 

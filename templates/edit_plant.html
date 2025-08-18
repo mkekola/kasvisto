@@ -33,8 +33,22 @@
         >
       </p>
       <input type="hidden" name="plant_id" value="{{ plant.id }}" />
-      <input type="submit" value="Muokkaa kasvia" />
+      <p>
+        Kasvin kategoria: <br />
+        <select name="categories" required>
+          {% for category in all_categories %}
+          <option value="{{ category.category }}"
+            {% if category.category in plant_categories %}selected{% endif %}>
+            {{ category.category }}
+          </option>
+          {% endfor %}
+        </select>
+      </p>
+      <p>
+        <input type="submit" value="Muokkaa kasvia" />
+      </p>
     </form>
+
     <p>
       <a href="/plant/{{ plant.id }}">Peruuta</a>
     </p>

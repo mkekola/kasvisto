@@ -47,12 +47,19 @@ def get_plant(plant_id):
     return result[0] if result else None
 
 
-def update_plant(plant_id, plant_name, light, care_info):
+def update_plant(plant_id, plant_name, light, care_info, selected_categories):
     sql = """UPDATE plants  SET plant_name = ?,
                                 light = ?,
                                 care_info = ?
                             WHERE id = ?"""
     db.execute(sql, [plant_name, light, care_info, plant_id])
+
+    sql = "DELETE FROM plant_categories WHERE plant_id = ?"
+    db.execute(sql, [plant_id])
+
+    sql = "INSERT INTO plant_categories (plant_id, category) VALUES (?, ?)"
+    for category in selected_categories:
+        db.execute(sql, [plant_id, category])
 
 
 def delete_plant(plant_id):
