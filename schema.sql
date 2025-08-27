@@ -25,6 +25,12 @@ CREATE TABLE categories (
     category TEXT
 );
 
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    plant_id INTEGER REFERENCES plants,
+    image BLOB
+);
+
 CREATE TABLE plant_categories (
     id INTEGER PRIMARY KEY,
     plant_id INTEGER REFERENCES plants,

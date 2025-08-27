@@ -27,6 +27,18 @@ def get_comments(plant_id):
              WHERE comments.plant_id = ?"""
     return db.query(sql, [plant_id])
 
+def get_images(plant_id):
+    sql = "SELECT id FROM images WHERE plant_id = ?"
+    return db.query(sql, [plant_id])
+
+def add_image(plant_id, image):
+    sql = "INSERT INTO images (plant_id, image) VALUES (?, ?)"
+    db.execute(sql, [plant_id, image])
+
+def get_image(image_id):
+    sql = "SELECT image FROM images WHERE id = ?"
+    result = db.query(sql, [image_id])
+    return result[0][0] if result else None
 
 def get_category_by_id(plant_id=None):
     sql = "SELECT category FROM plant_categories WHERE plant_id = ?"

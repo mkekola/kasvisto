@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, make_response, redirect, render_template, request, session
 import config
 import plants
 import users
@@ -47,8 +47,30 @@ def show_plant(plant_id):
     else:
         categories = [category["category"] for category in categories]
     comments = plants.get_comments(plant_id)
-    return render_template("show_plant.html", plant=plant, categories=categories, comments=comments)
+    images = plants.get_images(plant_id)
+    return render_template("show_plant.html", plant=plant, categories=categories, comments=comments, images=images)
 
+@app.route("/images/<int:plant_id>")
+def edit_images(plant_id):
+    require_login()
+    plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
+    if plant["user_id"] != session["user_id"]:
+        abort(403)
+
+    images = plants.get_images(plant_id)
+    return render_template("images.html", plant=plant, images=images)
+
+@app.route("/image/<int:image_id>.png")
+def show_image(image_id):
+    image = plants.get_image(image_id)
+    if not image:
+        abort(404)
+
+    response = make_response(bytes(image))
+    response.headers.set("Content-Type", "image/png")
+    return response
 
 @app.route("/new_plant")
 def new_plant():
@@ -110,6 +132,28 @@ def edit_plant(plant_id):
     else:
         plant_categories = [category["category"] for category in plant_categories]
     return render_template("edit_plant.html", plant=plant, all_categories=all_categories, plant_categories=plant_categories)
+
+@app.route("/add_image/<int:plant_id>", methods=["POST"])
+def add_image(plant_id):
+    require_login()
+
+    plant_id = request.form["plant_id"]
+    plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
+    if plant["user_id"] != session["user_id"]:
+        abort(403)
+
+    file = request.files["image"]
+    if not file.filename.endswith(".png"):
+        return "VIRHE: vain .png kuvat sallittu"
+
+    image = file.read()
+    if len(image) > 2 * 1024 * 1024:
+        return "VIRHE: kuvan on oltava enintään 2 Mt"
+    
+    plants.add_image(plant_id, image)
+    return redirect("/images/" + str(plant_id))
 
 
 @app.route("/update_plant", methods=["POST"])

@@ -10,6 +10,7 @@
     <p>
       <a href="/edit_plant/{{ plant.id }}">Muokkaa</a>
       <a href="/delete_plant/{{ plant.id }}">Poista</a>
+      <a href="/images/{{ plant.id }}">Kuvat</a>
     </p>
     {% endif %}
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
@@ -27,6 +28,12 @@
       <strong>Lisätty käyttäjältä:</strong>
       <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
     </p>
+    {% if images %}
+    <h2>Kuvat:</h2>
+      {% for image in images %}
+      <li><img src="/image/{{ image.id }}.png" alt="{{ plant.plant_name }} kuva"></li>
+      {% endfor %}
+    {% endif %}
     <h2>Kommentit:</h2>
     <ul>
       {% for comment in comments %}
