@@ -88,7 +88,7 @@ def create_plant():
 def create_comment(plant_id):
     require_login()
     content = request.form["comment"]
-    if not content:
+    if not content or len(content) > 500:
         abort(403)
     user_id = session["user_id"]
     plants.add_comment(plant_id, user_id, content)
