@@ -46,7 +46,8 @@ def show_plant(plant_id):
         categories = []
     else:
         categories = [category["category"] for category in categories]
-    return render_template("show_plant.html", plant=plant, categories=categories)
+    comments = plants.get_comments(plant_id)
+    return render_template("show_plant.html", plant=plant, categories=categories, comments=comments)
 
 
 @app.route("/new_plant")
@@ -82,6 +83,16 @@ def create_plant():
     plants.add_plant(plant_name, light, care_info, user_id, selected_categories)
 
     return redirect("/")
+
+@app.route("/create_comment/<int:plant_id>", methods=["POST"])
+def create_comment(plant_id):
+    require_login()
+    content = request.form["comment"]
+    if not content:
+        abort(403)
+    user_id = session["user_id"]
+    plants.add_comment(plant_id, user_id, content)
+    return redirect("/plant/" + str(plant_id))
 
 
 @app.route("/edit_plant/<int:plant_id>")

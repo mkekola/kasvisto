@@ -12,6 +12,14 @@ CREATE TABLE plants (
     user_id INTEGER REFERENCES users
 );
 
+CREATE TABLE comments (
+    id INTEGER PRIMARY KEY,
+    plant_id INTEGER REFERENCES plants,
+    user_id INTEGER REFERENCES users,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE categories (
     id INTEGER PRIMARY KEY,
     category TEXT

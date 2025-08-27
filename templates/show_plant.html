@@ -27,6 +27,20 @@
       <strong>Lisätty käyttäjältä:</strong>
       <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
     </p>
+    <h2>Kommentit:</h2>
+    <ul>
+      {% for comment in comments %}
+      <li>{{ comment.content }} - <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
+      {% endfor %}
+    </ul>
+    {% if session.user_id %}
+    <form action="/create_comment/{{ plant.id }}" method="POST">
+      <textarea name="comment" style="width: 600px; height: 100px;" placeholder="Lisää kommentti..."></textarea>
+      <p>
+      <button type="submit">Lisää</button>
+      </p>
+    </form>
+    {% endif %}
     <p><a href="/">Takaisin</a></p>
   </body>
 </html>

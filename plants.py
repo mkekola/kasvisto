@@ -17,6 +17,16 @@ def add_plant(plant_name, light, care_info, user_id, categories):
     for category in categories:
         db.execute(sql, [plant_id, category])
 
+def add_comment(plant_id, user_id, content):
+    sql = "INSERT INTO comments (plant_id, user_id, content) VALUES (?, ?, ?)"
+    db.execute(sql, [plant_id, user_id, content])
+
+def get_comments(plant_id):
+    sql = """SELECT comments.content, comments.user_id, users.username
+             FROM comments JOIN users ON comments.user_id = users.id
+             WHERE comments.plant_id = ?"""
+    return db.query(sql, [plant_id])
+
 
 def get_category_by_id(plant_id=None):
     sql = "SELECT category FROM plant_categories WHERE plant_id = ?"
