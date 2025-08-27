@@ -155,6 +155,22 @@ def add_image(plant_id):
     plants.add_image(plant_id, image)
     return redirect("/images/" + str(plant_id))
 
+@app.route("/remove_images", methods=["POST"])
+def remove_images():
+    require_login()
+
+    plant_id = request.form["plant_id"]
+    plant = plants.get_plant(plant_id)
+    if not plant:
+        abort(404)
+    if plant["user_id"] != session["user_id"]:
+        abort(403)
+
+    for image_id in request.form.getlist("image_id"):
+        plants.remove_image(plant_id, image_id)
+
+    return redirect("/images/" + str(plant_id))
+
 
 @app.route("/update_plant", methods=["POST"])
 def update_plant():

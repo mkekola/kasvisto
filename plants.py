@@ -40,6 +40,10 @@ def get_image(image_id):
     result = db.query(sql, [image_id])
     return result[0][0] if result else None
 
+def remove_image(plant_id, image_id):
+    sql = "DELETE FROM images WHERE id = ? AND plant_id = ?"
+    db.execute(sql, [image_id, plant_id])
+
 def get_category_by_id(plant_id=None):
     sql = "SELECT category FROM plant_categories WHERE plant_id = ?"
     return db.query(sql, [plant_id])

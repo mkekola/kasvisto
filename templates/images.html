@@ -6,19 +6,25 @@
 
   <body>
     <h1>{{ plant.plant_name }} kuvat</h1>
-    <ul>
+
+    <form action="/remove_images" method="POST">
       {% for image in images %}
-        <li><img src="/static/images/{{ image.id }}.png" alt="{{ plant.plant_name }} kuva"></li>
+      <input type="checkbox" name="image_id" value="{{ image.id }}" />
+      <img src="/image/{{ image.id }}.png" alt="{{ plant.plant_name }} kuva" />
       {% endfor %}
-    </ul>
+      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+      <input type="submit" value="Poista valitut" />
+    </form>
 
     <h2>Lisää kuva</h2>
-    <form action="/add_image/{{ plant.id }}" method="POST" enctype="multipart/form-data">
-        <p>
-            Kuva: <input type="file" name="image" accept=".png">
-        </p>
-        <input type="hidden" name="plant_id" value="{{ plant.id }}">
-        <button type="submit">Lähetä</button>
+    <form
+      action="/add_image/{{ plant.id }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <p>Kuva: <input type="file" name="image" accept=".png" /></p>
+      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+      <button type="submit">Lähetä</button>
     </form>
     <p><a href="/plant/{{ plant.id }}">Takaisin</a></p>
   </body>
