@@ -2,39 +2,86 @@
 <html>
   <head>
     <title>Kasvisto</title>
+    <link rel="stylesheet" href="/static/images/styles.css" />
   </head>
 
   <body>
-    <h1>Kasvisto🪴</h1>
+    <header class="hero">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
 
-    {% if session.username %}
-    <p>Olet kirjautunut nimellä {{ session.username }}</p>
-    <p>
-      <input type="button" value="Kirjaudu ulos" onclick="window.location.href='/logout'" />
-    </p>
-    <p>
-      <input type="button" value="Lisää uusi kasvi" onclick="window.location.href='/new_plant'" />
-    </p>
-    {% else %}
-    <p>
-      <input type="button" value="Rekisteröidy" onclick="window.location.href='/register'" />
-      <input type="button" value="Kirjaudu" onclick="window.location.href='/login'" />
-    </p>
-    {% endif %}
+    <main class="container">
+      {% if session.username %}
+      <h1>Tervetuloa, {{ session.username }}!</h1>
+      {% endif %}
 
-    <input type="button" value="Etsi kasvi" onclick="window.location.href='/find_plant'" />
-    
-    <h2>Kasvit</h2>
-    <ul>
-      {% for plant in plants %}
-      <li>
-        <a href="/plant/{{ plant.id }}"><strong>{{ plant.plant_name }}</strong></a>
-        <p>
-        Käyttäjältä:
-        <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
-        </p>
-      </li>
-      {% endfor %}
-    </ul>
+      <section class="grid">
+        <article class="card">
+          <h3>Etsi kasveja</h3>
+          <p>
+            Käytä hakutoimintoa löytääksesi etsimäsi kasvit ja niiden
+            hoitotiedot.
+          </p>
+          <p><a class="btn" href="/find_plant">Etsi kasvi</a></p>
+        </article>
+
+        {% if session.username %}
+
+        <article class="card">
+          <h3>Käyttäjäsivu</h3>
+          <p>Hallinnoi omia kasvejasi, hoitotietoja ja kommentteja.</p>
+          <p>
+            <a class="btn" href="/user/{{ session.user_id }}"
+              >Avaa käyttäjäsivu</a
+            >
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Lisää uusi kasvi</h3>
+          <p>Lisää uusi kasvi sekä sen hoitotiedot kasvistoon.</p>
+          <p><a class="btn" href="/new_plant">Lisää uusi kasvi</a></p>
+        </article>
+      </section>
+
+      <p>
+        <input
+          type="button"
+          value="Kirjaudu ulos"
+          onclick="window.location.href='/logout'"
+        />
+      </p>
+      {% else %}
+
+      <p>
+        <input
+          type="button"
+          value="Rekisteröidy"
+          onclick="window.location.href='/register'"
+        />
+        <input
+          type="button"
+          value="Kirjaudu"
+          onclick="window.location.href='/login'"
+        />
+      </p>
+      {% endif %}
+
+      <h2>Kasvit</h2>
+      <ul>
+        {% for plant in plants %}
+        <li>
+          <a href="/plant/{{ plant.id }}"
+            ><strong>{{ plant.plant_name }}</strong></a
+          >
+          <p>
+            Käyttäjältä:
+            <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+    </main>
   </body>
 </html>
