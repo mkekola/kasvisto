@@ -44,7 +44,9 @@
     <form action="/create_comment/{{ plant.id }}" method="POST">
       <textarea name="comment" style="width: 600px; height: 100px;" placeholder="Lisää kommentti..."></textarea>
       <p>
-      <button type="submit">Lisää</button>
+        <input type="hidden" name="plant_id" value="{{ plant.id }}"> 
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <button type="submit">Lisää</button>
       </p>
     </form>
     {% endif %}

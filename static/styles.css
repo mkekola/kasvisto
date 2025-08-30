@@ -28,6 +28,10 @@ body {
   text-align: center;
   overflow: hidden;
 }
+.hero--small {
+  min-height: 25vh;
+}
+
 .hero__img {
   width: 100%;
   height: 100%;

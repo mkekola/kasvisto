@@ -1,4 +1,4 @@
-import sqlite3
+import secrets, sqlite3
 from flask import Flask
 from flask import abort, make_response, redirect, render_template, request, session
 import config
@@ -10,6 +10,10 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/")
@@ -109,6 +113,7 @@ def create_plant():
 @app.route("/create_comment/<int:plant_id>", methods=["POST"])
 def create_comment(plant_id):
     require_login()
+    check_csrf()
     content = request.form["comment"]
     if not content or len(content) > 500:
         abort(403)
@@ -120,6 +125,7 @@ def create_comment(plant_id):
 @app.route("/edit_plant/<int:plant_id>")
 def edit_plant(plant_id):
     require_login()
+    check_csrf()
     plant = plants.get_plant(plant_id)
     if not plant:
         abort(404)
@@ -259,6 +265,7 @@ def login():
 
         if user_id:
             session["user_id"] = user_id
+            session["csrf_token"] = secrets.token_hex(16)
             session["username"] = username
             return redirect("/")
         return "VIRHE: väärä tunnus tai salasana"
