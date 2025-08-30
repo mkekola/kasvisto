@@ -31,7 +31,7 @@
       </p>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <p>
-        Valitse luokka: <br />
+        Kasvin kategoria: <br />
         <select name="categories" required>
           {% for category in categories %}
           <option value="{{ category.category }}">
