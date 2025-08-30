@@ -91,6 +91,10 @@ def update_plant(plant_id, plant_name, light, care_info, selected_categories):
 def delete_plant(plant_id):
     sql0 = "DELETE FROM plant_categories WHERE plant_id = ?"
     db.execute(sql0, [plant_id])
+    sql1 = "DELETE FROM images WHERE plant_id = ?"
+    db.execute(sql1, [plant_id])
+    sql2 = "DELETE FROM comments WHERE plant_id = ?"
+    db.execute(sql2, [plant_id])
     sql = "DELETE FROM plants WHERE id = ?"
     db.execute(sql, [plant_id])
 
