@@ -12,9 +12,23 @@
     </header>
 
     <main class="container">
-      {% if session.username %}
-      <h1>Tervetuloa, {{ session.username }}!</h1>
-      {% endif %}
+
+      <div class="page-header">
+        {% if session.username %}
+        <h1>Tervetuloa, {{ session.username }}!</h1>
+          {% else %}
+        <h1>Tervetuloa Kasvistoon!</h1>
+        {% endif %}
+
+        <div class="page-header_actions">
+          {% if session.username %}
+            <a class="btn btn--secondary" href="/logout">Kirjaudu ulos</a>
+            {% else %}
+            <a class="btn btn--secondary" href="/login">Kirjaudu</a>
+            <a class="btn btn--secondary" href="/register">Rekisteröidy</a>
+          {% endif %}
+        </div>
+      </div>
 
       <section class="grid">
         <article class="card">
@@ -44,28 +58,7 @@
           <p><a class="btn" href="/new_plant">Lisää uusi kasvi</a></p>
         </article>
       </section>
-
-      <p>
-        <input
-          type="button"
-          value="Kirjaudu ulos"
-          onclick="window.location.href='/logout'"
-        />
-      </p>
-      {% else %}
-
-      <p>
-        <input
-          type="button"
-          value="Rekisteröidy"
-          onclick="window.location.href='/register'"
-        />
-        <input
-          type="button"
-          value="Kirjaudu"
-          onclick="window.location.href='/login'"
-        />
-      </p>
+      
       {% endif %}
 
       <h2>Kasvit</h2>

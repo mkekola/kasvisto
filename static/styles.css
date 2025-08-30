@@ -35,6 +35,22 @@ body {
   object-position: center;
 }
 
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 .5rem;
+}
+
+.page-header_actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+}
+
 .container {
   max-width: 1000px;
   margin: 2rem auto;
@@ -80,4 +96,10 @@ body {
   text-decoration: none;
   color: var(--text);
   transition: transform .06s ease, box-shadow .2s ease;
+}
+
+.inline{ display:inline; margin:0;}
+.btn--secondary {
+  background: var(--bg);
+  border-color: var(--text);
 }
