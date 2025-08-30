@@ -54,9 +54,10 @@ def show_plant(plant_id):
     images = plants.get_images(plant_id)
     return render_template("show_plant.html", plant=plant, categories=categories, comments=comments, images=images)
 
-@app.route("/images/<int:plant_id>")
+@app.route("/images/<int:plant_id>", methods=["GET", "POST"])
 def edit_images(plant_id):
     require_login()
+    check_csrf()
     plant = plants.get_plant(plant_id)
     if not plant:
         abort(404)
@@ -76,9 +77,10 @@ def show_image(image_id):
     response.headers.set("Content-Type", "image/png")
     return response
 
-@app.route("/new_plant")
+@app.route("/new_plant", methods=["POST"])
 def new_plant():
     require_login()
+    check_csrf()
     categories = plants.get_categories()
     return render_template("new_plant.html", categories=categories)
 
@@ -86,6 +88,7 @@ def new_plant():
 @app.route("/create_plant", methods=["POST"])
 def create_plant():
     require_login()
+    check_csrf()
     plant_name = request.form["plant_name"]
     if not plant_name or len(plant_name) > 50:
         abort(403)
@@ -122,7 +125,7 @@ def create_comment(plant_id):
     return redirect("/plant/" + str(plant_id))
 
 
-@app.route("/edit_plant/<int:plant_id>")
+@app.route("/edit_plant/<int:plant_id>", methods=["POST"])
 def edit_plant(plant_id):
     require_login()
     check_csrf()
@@ -142,7 +145,7 @@ def edit_plant(plant_id):
 @app.route("/add_image/<int:plant_id>", methods=["POST"])
 def add_image(plant_id):
     require_login()
-
+    check_csrf()
     plant_id = request.form["plant_id"]
     plant = plants.get_plant(plant_id)
     if not plant:

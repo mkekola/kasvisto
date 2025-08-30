@@ -55,7 +55,10 @@
         <article class="card">
           <h3>Lisää uusi kasvi</h3>
           <p>Lisää uusi kasvi sekä sen hoitotiedot kasvistoon.</p>
-          <p><a class="btn" href="/new_plant">Lisää uusi kasvi</a></p>
+          <form action="/new_plant" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+          <button type="submit" class="btn">Lisää uusi kasvi</button>
+          </form>
         </article>
       </section>
       

@@ -8,9 +8,17 @@
     <h1>{{ plant.plant_name }} 🪴</h1>
     {% if session.user_id == plant.user_id %}
     <p>
-      <a href="/edit_plant/{{ plant.id }}">Muokkaa</a>
-      <a href="/delete_plant/{{ plant.id }}">Poista</a>
-      <a href="/images/{{ plant.id }}">Kuvat</a>
+      <form action="/edit_plant/{{ plant.id }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <button type="submit">Muokkaa</button>
+      </form>
+      <form action="/delete_plant/{{ plant.id }}" method="GET">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <button type="submit">Poista</button>
+      </form>
+      <form action="/images/{{ plant.id }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <button type="submit">Kuvat</button>
     </p>
     {% endif %}
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>

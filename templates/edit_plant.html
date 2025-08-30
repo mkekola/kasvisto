@@ -33,6 +33,7 @@
         >
       </p>
       <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <p>
         Kasvin kategoria: <br />
         <select name="categories" required>
