@@ -2,32 +2,48 @@
 <html>
   <head>
     <title>Rekisteröinti</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <form action="/create" method="post">
-      <p>
-        Tunnus: <br />
-        <input type="text" name="username" required />
-      </p>
-      <p>
-        Salasana: <br />
-        <input type="password" name="password1" required />
-      </p>
-      <p>
-        Salasana uudestaan: <br />
-        <input type="password" name="password2" required />
-      </p>
-      <p>
-      <input type="submit" value="Luo tunnus" />
-      <input type="button" value="Peruuta" onclick="location.href='/'" />
-      </p>
-      <p>
-        Tai jos sinulla on jo tunnus: <br />
-        <input type="button" value="Kirjaudu sisään" onclick="location.href='/login'" />
-      </p>
-    </form>
-  </body>
-</html>
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
 
+    <main class="container">
+
+      <div class="page-header">
+        <h1>Luo uusi käyttäjä</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
+      <article class="card card--small">
+        <form action="/create" method="post">
+          <p>
+            Tunnus: <br />
+            <input type="text" name="username" required />
+          </p>
+          <p>
+            Salasana: <br />
+            <input type="password" name="password1" required />
+          </p>
+          <p>
+            Salasana uudestaan: <br />
+            <input type="password" name="password2" required />
+          </p>
+          <p>
+          <input class="btn" type="submit" value="Luo tunnus" />
+          <input class="btn btn--secondary" type="button" value="Peruuta" onclick="location.href='/'" />
+          </p>
+          <p>
+            Tai jos sinulla on jo tunnus: <br />
+            <input class="btn btn--secondary" type="button" value="Kirjaudu sisään" onclick="location.href='/login'" />
+          </p>
+        </form>
+      </article>
+    </main>
+  </body>
 </html>
