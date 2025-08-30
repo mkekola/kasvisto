@@ -50,7 +50,7 @@ def get_category_by_id(plant_id=None):
 
 
 def get_plants():
-    sql = """SELECT plants.id, 
+    sql = """SELECT plants.id,
                     plants.plant_name, 
                     users.id user_id, 
                     users.username 
