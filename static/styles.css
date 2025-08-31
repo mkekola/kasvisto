@@ -164,6 +164,12 @@ body {
   font-size: 0.9rem;
 }
 
+.btn--danger {
+  background: rgb(199, 97, 97);
+  border-color: rgb(75, 37, 37);
+  font-size: 0.9rem;
+}
+
 .label {
   display: block;
   margin-bottom: 0.5rem;

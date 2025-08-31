@@ -2,28 +2,44 @@
 <html>
   <head>
     <title>Kasvin poistaminen</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>Kasvin poistaminen ❌</h1>
-    <p>
-      Haluatko varmasti poistaa kasvin: <strong>{{ plant.plant_name }}</strong>?
-    </p>
-    <form action="/delete_plant/{{ plant.id }}" method="post">
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
+
+    <main class="container">
+      <div class="page-header">
+        <h1>Kasvin poistaminen ❌</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
       <p>
-        <input
-          type="submit"
-          name="delete"
-          style="background-color: red; color: white"
-          value="Kyllä, poista kasvi"
-        />
-        <input
-          type="button"
-          name="cancel"
-          value="Peruuta"
-          onclick="window.location.href='/'"
-        />
+        Haluatko varmasti poistaa kasvin:
+        <strong>{{ plant.plant_name }}</strong>?
       </p>
-    </form>
+      <form action="/delete_plant/{{ plant.id }}" method="post">
+        <p>
+          <input
+            type="submit"
+            name="delete"
+            class="btn btn--danger"
+            value="Kyllä, poista kasvi"
+          />
+          <input
+            class="btn btn--secondary"
+            type="button"
+            name="cancel"
+            value="Peruuta"
+            onclick="window.location.href='/'"
+          />
+        </p>
+      </form>
+    </main>
   </body>
 </html>
