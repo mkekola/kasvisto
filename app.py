@@ -162,11 +162,12 @@ def add_image(plant_id):
         return "VIRHE: kuvan on oltava enintään 2 Mt"
     
     plants.add_image(plant_id, image)
-    return redirect("/images/" + str(plant_id))
+    return redirect("/plant/" + str(plant_id))
 
 @app.route("/remove_images", methods=["POST"])
 def remove_images():
     require_login()
+    check_csrf()
 
     plant_id = request.form["plant_id"]
     plant = plants.get_plant(plant_id)
@@ -178,7 +179,7 @@ def remove_images():
     for image_id in request.form.getlist("image_id"):
         plants.remove_image(plant_id, image_id)
 
-    return redirect("/images/" + str(plant_id))
+    return redirect("/plant/" + str(plant_id))
 
 
 @app.route("/update_plant", methods=["POST"])
