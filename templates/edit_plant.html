@@ -23,7 +23,7 @@
       <article class="card card--small">
         <form action="/update_plant" method="post">
           <p>
-            Kasvin nimi: <br />
+            <label for="plant_name">Kasvin nimi: </label><br />
             <input
               type="text"
               name="plant_name"
@@ -33,7 +33,7 @@
             />
           </p>
           <p>
-            Kasvin valontarve: <br />
+            <label for="light">Kasvin valontarve: </label><br />
             <input type="radio" name="light" value="Varjo" {% if plant.light ==
             "Varjo" %}checked{% endif %} required /> Varjo <input type="radio"
             name="light" value="Puolivarjo" {% if plant.light == "Puolivarjo"
@@ -42,7 +42,7 @@
             %}checked{% endif %} required /> Aurinko
           </p>
           <p>
-            Kasvin hoitotiedot: <br />
+            <label for="care_info">Kasvin hoitotiedot: </label><br />
             <textarea
               name="care_info"
               rows="8"
@@ -60,7 +60,7 @@
             value="{{ session.csrf_token }}"
           />
           <p>
-            Kasvin kategoria: <br />
+            <label for="categories">Kasvin kategoria: </label><br />
             <select name="categories" required>
               {% for category in all_categories %}
               <option
