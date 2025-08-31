@@ -63,8 +63,30 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-items: start;
+}
+
+.grid--cards {
+  align-items: stretch;
+}
+
+.grid--cards .card {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid--cards .card .card__actions {
+  margin-top: auto;
+}
+
+.grid--cards .card > :last-child {
+  margin-top: auto;
+}
+
+.grid--plants {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .card {
@@ -73,6 +95,20 @@ body {
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card--plant .plant__title {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card--plant .plant__title a:hover {
+  text-decoration: underline;
+}
+
+.card--plant .plant__meta {
+  margin: .25rem 0 0;
+  opacity: .9;
 }
 
 .card img {
@@ -90,6 +126,16 @@ body {
   margin: 0.5rem 0 0;
   color: var(--muted);
 }
+
+.card--plant a, .card--plant a:visited {
+  color: inherit;
+}
+
+.card--plant a:hover, .card--plant a:focus {
+  text-decoration: underline;
+}
+
+.grid-title{ grid-column: 1 / -1; margin: 1rem 0 .5rem; }
 
 .btn {
   display: inline-block;

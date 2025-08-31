@@ -12,25 +12,24 @@
     </header>
 
     <main class="container">
-
       <div class="page-header">
         {% if session.username %}
         <h1>Tervetuloa, {{ session.username }}!</h1>
-          {% else %}
+        {% else %}
         <h1>Tervetuloa Kasvistoon!</h1>
         {% endif %}
 
         <div class="page-header_actions">
           {% if session.username %}
-            <a class="btn btn--secondary" href="/logout">Kirjaudu ulos</a>
-            {% else %}
-            <a class="btn btn--secondary" href="/login">Kirjaudu</a>
-            <a class="btn btn--secondary" href="/register">Rekisteröidy</a>
+          <a class="btn btn--secondary" href="/logout">Kirjaudu ulos</a>
+          {% else %}
+          <a class="btn btn--secondary" href="/login">Kirjaudu</a>
+          <a class="btn btn--secondary" href="/register">Rekisteröidy</a>
           {% endif %}
         </div>
       </div>
 
-      <section class="grid">
+      <section class="grid grid--features">
         <article class="card">
           <h3>Etsi kasveja</h3>
           <p>
@@ -55,29 +54,33 @@
         <article class="card">
           <h3>Lisää uusi kasvi</h3>
           <p>Lisää uusi kasvi sekä sen hoitotiedot kasvistoon.</p>
-          <form action="/new_plant" method="POST">
-          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-          <button type="submit" class="btn">Lisää uusi kasvi</button>
+          <form action="/new_plant" method="POST" class="card__actions">
+            <input
+              type="hidden"
+              name="csrf_token"
+              value="{{ session.csrf_token }}"
+            />
+            <button type="submit" class="btn">Lisää uusi kasvi</button>
           </form>
         </article>
       </section>
-      
+
       {% endif %}
 
-      <h2>Kasvit</h2>
-      <ul>
+      <section class="grid grid--plants">
+        <h2 class="grid-title">Kasvit</h2>
         {% for plant in plants %}
-        <li>
-          <a href="/plant/{{ plant.id }}"
-            ><strong>{{ plant.plant_name }}</strong></a
-          >
-          <p>
+        <article class="card card--plant">
+          <h3 class="plant__title">
+            <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+          </h3>
+          <p class="plant__meta">
             Käyttäjältä:
             <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
           </p>
-        </li>
+        </article>
         {% endfor %}
-      </ul>
+      </section>
     </main>
   </body>
 </html>
