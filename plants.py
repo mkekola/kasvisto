@@ -104,7 +104,7 @@ def find_plants(query):
                     plants.plant_name,
                     plants.care_info
              FROM plants
-             WHERE plants.plant_name LIKE ? OR plants.care_info LIKE ?
+             WHERE plants.plant_name LIKE ?
              ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like, like])
+    return db.query(sql, [like])
