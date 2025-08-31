@@ -50,7 +50,7 @@
               maxlength="500"
               required
             >
-{{ plant.care_info }}</textarea
+{{ plant.care_info | show_lines }}</textarea
             >
           </p>
           <input type="hidden" name="plant_id" value="{{ plant.id }}" />

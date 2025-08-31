@@ -39,7 +39,7 @@
     {% endif %}
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
     <p><strong>Hoitotiedot:</strong></p>
-    <p>{{ plant.care_info }}</p>
+    <p>{{ plant.care_info | show_lines }}</p>
     {% if categories %}
     <p><strong>Luokat:</strong>
       <ul>
@@ -61,7 +61,7 @@
     <h2>Kommentit:</h2>
     <ul>
       {% for comment in comments %}
-      <li>{{ comment.content }} - <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
+      <li>{{ comment.content | show_lines }} - <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
       {% endfor %}
     </ul>
     {% if session.user_id %}

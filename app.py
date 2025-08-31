@@ -1,6 +1,7 @@
 import secrets, sqlite3
 from flask import Flask
 from flask import abort, make_response, redirect, render_template, request, session
+import markupsafe
 import config
 import plants
 import users
@@ -281,3 +282,9 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
+
+@app.template_filter()
+def show_lines(content):
+    content = str(markupsafe.escape(content))
+    content = content.replace("\n", "<br />")
+    return markupsafe.Markup(content)
