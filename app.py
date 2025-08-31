@@ -1,4 +1,5 @@
-import secrets, sqlite3
+import secrets
+import sqlite3
 from flask import Flask
 from flask import abort, make_response, redirect, render_template, request, session
 import markupsafe
@@ -9,18 +10,22 @@ import users
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+
 def require_login():
     if "user_id" not in session:
         abort(403)
+
 
 def check_csrf():
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
+
 @app.route("/")
 def index():
     all_plants = plants.get_plants()
     return render_template("index.html", plants=all_plants)
+
 
 @app.route("/user/<int:user_id>")
 def show_user(user_id):
@@ -29,6 +34,7 @@ def show_user(user_id):
         abort(404)
     user_plants = users.get_plants(user_id)
     return render_template("show_user.html", user=user, plants=user_plants)
+
 
 @app.route("/find_plant")
 def find_plant():
@@ -53,7 +59,12 @@ def show_plant(plant_id):
         categories = [category["category"] for category in categories]
     comments = plants.get_comments(plant_id)
     images = plants.get_images(plant_id)
-    return render_template("show_plant.html", plant=plant, categories=categories, comments=comments, images=images)
+    return render_template("show_plant.html",
+                           plant=plant,
+                           categories=categories,
+                           comments=comments,
+                           images=images)
+
 
 @app.route("/images/<int:plant_id>", methods=["GET", "POST"])
 def edit_images(plant_id):
@@ -68,6 +79,7 @@ def edit_images(plant_id):
     images = plants.get_images(plant_id)
     return render_template("images.html", plant=plant, images=images)
 
+
 @app.route("/image/<int:image_id>.png")
 def show_image(image_id):
     image = plants.get_image(image_id)
@@ -77,6 +89,7 @@ def show_image(image_id):
     response = make_response(bytes(image))
     response.headers.set("Content-Type", "image/png")
     return response
+
 
 @app.route("/new_plant", methods=["POST"])
 def new_plant():
@@ -110,9 +123,11 @@ def create_plant():
     for cat in categories:
         selected_categories.append(cat)
 
-    plants.add_plant(plant_name, light, care_info, user_id, selected_categories)
+    plants.add_plant(plant_name, light, care_info,
+                     user_id, selected_categories)
 
     return redirect("/")
+
 
 @app.route("/create_comment/<int:plant_id>", methods=["POST"])
 def create_comment(plant_id):
@@ -140,8 +155,13 @@ def edit_plant(plant_id):
     if not plant_categories:
         plant_categories = []
     else:
-        plant_categories = [category["category"] for category in plant_categories]
-    return render_template("edit_plant.html", plant=plant, all_categories=all_categories, plant_categories=plant_categories)
+        plant_categories = [category["category"]
+                            for category in plant_categories]
+    return render_template("edit_plant.html",
+                           plant=plant,
+                           all_categories=all_categories,
+                           plant_categories=plant_categories)
+
 
 @app.route("/add_image/<int:plant_id>", methods=["POST"])
 def add_image(plant_id):
@@ -161,9 +181,10 @@ def add_image(plant_id):
     image = file.read()
     if len(image) > 2 * 1024 * 1024:
         return "VIRHE: kuvan on oltava enintään 2 Mt"
-    
+
     plants.add_image(plant_id, image)
     return redirect("/plant/" + str(plant_id))
+
 
 @app.route("/remove_images", methods=["POST"])
 def remove_images():
@@ -201,7 +222,8 @@ def update_plant():
     care_info = request.form["care_info"]
     if not care_info or len(care_info) > 500:
         abort(403)
-    all_categories = [category["category"] for category in plants.get_categories()]
+    all_categories = [category["category"]
+                      for category in plants.get_categories()]
     categories = []
     for category in request.form.getlist("categories"):
         if category in all_categories:
@@ -282,6 +304,7 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
+
 
 @app.template_filter()
 def show_lines(content):
