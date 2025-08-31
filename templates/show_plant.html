@@ -2,23 +2,39 @@
 <html>
   <head>
     <title>{{ plant.plant_name }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>{{ plant.plant_name }} 🪴</h1>
+        <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
+
+    <main class="container">
+      
+      <div class="page-header">
+        <h1>{{ plant.plant_name }}</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
+    <article class="card card--small">
     {% if session.user_id == plant.user_id %}
     <p>
-      <form action="/edit_plant/{{ plant.id }}" method="POST">
+      <form class="inline" action="/edit_plant/{{ plant.id }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <button type="submit">Muokkaa</button>
       </form>
-      <form action="/delete_plant/{{ plant.id }}" method="GET">
+      <form class="inline" action="/delete_plant/{{ plant.id }}" method="GET">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <button type="submit">Poista</button>
       </form>
-      <form action="/images/{{ plant.id }}" method="POST">
+      <form class="inline" action="/images/{{ plant.id }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <button type="submit">Kuvat</button>
+      </form>
     </p>
     {% endif %}
     <p><strong>Valontarve:</strong> {{ plant.light }}</p>
@@ -34,7 +50,7 @@
     {% endif %}
     <p>
       <strong>Lisätty käyttäjältä:</strong>
-      <a href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
+      <a class="user__link" href="/user/{{ plant.user_id }}">{{ plant.username }}</a>
     </p>
     {% if images %}
     <h2>Kuvat:</h2>
@@ -58,6 +74,8 @@
       </p>
     </form>
     {% endif %}
-    <p><a href="/">Takaisin</a></p>
+    <p><a class="btn btn--secondary" href="/">Takaisin</a></p>
+    </article>
+    </main>
   </body>
 </html>

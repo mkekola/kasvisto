@@ -157,6 +157,7 @@ body {
   display: inline;
   margin: 0;
 }
+
 .btn--secondary {
   background: var(--bg);
   border-color: var(--text);
@@ -179,3 +180,13 @@ body {
 .plant__link:hover {
   text-decoration: underline;
 }
+
+.user__link {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.user__link:hover {
+  text-decoration: underline;
+}
+
