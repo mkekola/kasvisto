@@ -2,30 +2,52 @@
 <html>
   <head>
     <title>{{ plant.plant_name }} kuvat</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>{{ plant.plant_name }} kuvat</h1>
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
 
-    <form action="/remove_images" method="POST">
-      {% for image in images %}
-      <input type="checkbox" name="image_id" value="{{ image.id }}" />
-      <img src="/image/{{ image.id }}.png" alt="{{ plant.plant_name }} kuva" />
-      {% endfor %}
-      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
-      <input type="submit" value="Poista valitut" />
-    </form>
+    <main class="container">
+      <div class="page-header">
+        <h1>{{ plant.plant_name }} kuvat</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
 
-    <h2>Lisää kuva</h2>
-    <form
-      action="/add_image/{{ plant.id }}"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <p>Kuva: <input type="file" name="image" accept=".png" /></p>
-      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
-      <button type="submit">Lähetä</button>
-    </form>
-    <p><a href="/plant/{{ plant.id }}">Takaisin</a></p>
+      <article class="card card--small">
+        <form action="/remove_images" method="POST">
+          {% for image in images %}
+          <input type="checkbox" name="image_id" value="{{ image.id }}" />
+          <img
+            src="/image/{{ image.id }}.png"
+            alt="{{ plant.plant_name }} kuva"
+          />
+          {% endfor %}
+          <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+          <input class="btn" type="submit" value="Poista valitut" />
+        </form>
+
+        <h2>Lisää kuva</h2>
+        <form
+          action="/add_image/{{ plant.id }}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <p>Kuva: <input type="file" name="image" accept=".png" /></p>
+          <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+          <p>
+            <button class="btn" type="submit">Lähetä</button>
+          </p>
+        </form>
+        <p><a href="/plant/{{ plant.id }}">Takaisin</a></p>
+      </article>
+    </main>
   </body>
 </html>
