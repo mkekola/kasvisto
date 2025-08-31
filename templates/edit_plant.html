@@ -2,56 +2,92 @@
 <html>
   <head>
     <title>Kasvin muokkaus</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>Kasvin muokkaus🪴</h1>
-    <form action="/update_plant" method="post">
-      <p>
-        Kasvin nimi: <br />
-        <input
-          type="text"
-          name="plant_name"
-          value="{{ plant.plant_name }}"
-          maxlength="50"
-          required
-        />
-      </p>
-      <p>
-        Kasvin valontarve: <br />
-        <input type="radio" name="light" value="Varjo" {% if plant.light ==
-        "Varjo" %}checked{% endif %} required /> Varjo <input type="radio"
-        name="light" value="Puolivarjo" {% if plant.light == "Puolivarjo"
-        %}checked{% endif %} required /> Puolivarjo <input type="radio"
-        name="light" value="Aurinko" {% if plant.light == "Aurinko" %}checked{%
-        endif %} required /> Aurinko
-      </p>
-      <p>
-        Kasvin hoitotiedot: <br />
-        <textarea name="care_info" rows="8" cols="60" maxlength="500" required>
-{{ plant.care_info }}</textarea
-        >
-      </p>
-      <input type="hidden" name="plant_id" value="{{ plant.id }}" />
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-      <p>
-        Kasvin kategoria: <br />
-        <select name="categories" required>
-          {% for category in all_categories %}
-          <option value="{{ category.category }}"
-            {% if category.category in plant_categories %}selected{% endif %}>
-            {{ category.category }}
-          </option>
-          {% endfor %}
-        </select>
-      </p>
-      <p>
-        <input type="submit" value="Muokkaa kasvia" />
-      </p>
-    </form>
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
 
-    <p>
-      <a href="/plant/{{ plant.id }}">Peruuta</a>
-    </p>
+    <main class="container">
+
+      <div class="page-header">
+        <h1>Muokkaa kasvia</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
+      <article class="card card--small">
+        <form action="/update_plant" method="post">
+          <p>
+            Kasvin nimi: <br />
+            <input
+              type="text"
+              name="plant_name"
+              value="{{ plant.plant_name }}"
+              maxlength="50"
+              required
+            />
+          </p>
+          <p>
+            Kasvin valontarve: <br />
+            <input type="radio" name="light" value="Varjo" {% if plant.light ==
+            "Varjo" %}checked{% endif %} required /> Varjo <input type="radio"
+            name="light" value="Puolivarjo" {% if plant.light == "Puolivarjo"
+            %}checked{% endif %} required /> Puolivarjo <input type="radio"
+            name="light" value="Aurinko" {% if plant.light == "Aurinko"
+            %}checked{% endif %} required /> Aurinko
+          </p>
+          <p>
+            Kasvin hoitotiedot: <br />
+            <textarea
+              name="care_info"
+              rows="8"
+              cols="60"
+              maxlength="500"
+              required
+            >
+{{ plant.care_info }}</textarea
+            >
+          </p>
+          <input type="hidden" name="plant_id" value="{{ plant.id }}" />
+          <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ session.csrf_token }}"
+          />
+          <p>
+            Kasvin kategoria: <br />
+            <select name="categories" required>
+              {% for category in all_categories %}
+              <option
+                value="{{ category.category }}"
+                {%
+                if
+                category.category
+                in
+                plant_categories
+                %}selected{%
+                endif
+                %}
+              >
+                {{ category.category }}
+              </option>
+              {% endfor %}
+            </select>
+          </p>
+          <p>
+            <input type="submit" value="Muokkaa kasvia" />
+          </p>
+        </form>
+
+        <p>
+          <a href="/plant/{{ plant.id }}">Peruuta</a>
+        </p>
+      </article>
+    </main>
   </body>
 </html>
