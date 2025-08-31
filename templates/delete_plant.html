@@ -20,7 +20,7 @@
       </div>
 
       <p>
-        Haluatko varmasti poistaa kasvin:
+        <label for="confirm_delete">Haluatko varmasti poistaa kasvin:</label>
         <strong>{{ plant.plant_name }}</strong>?
       </p>
       <form action="/delete_plant/{{ plant.id }}" method="post">
