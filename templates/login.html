@@ -2,30 +2,52 @@
 <html>
   <head>
     <title>Kirjautuminen</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    {% if session.username %}
-    <p>Olet kirjautunut nimellä {{ session.username }}</p>
-    <p>
-      <a href="/logout">Kirjaudu ulos</a>
-    </p>
-    {% else %}
-    <h2>Kirjaudu sisään</h2>
-    <form action="/login" method="post">
-      <p>
-        Tunnus: <br />
-        <input type="text" name="username" required />
-      </p>
-      <p>
-        Salasana: <br />
-        <input type="password" name="password" required />
-      </p>
-      <input type="submit" value="Kirjaudu" />
-      <p>
-        <input type="button" value="Rekisteröidy" onclick="location.href='/register'" />
-      </p>
-    </form>
-    {% endif %}
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
+
+    <main class="container">
+      <div class="page-header">
+        <h1>Kirjaudu</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
+      <article class="card card--small">
+        {% if session.username %}
+        <p>Olet kirjautunut nimellä {{ session.username }}</p>
+        <p>
+          <a href="/logout">Kirjaudu ulos</a>
+        </p>
+        {% else %}
+        <form action="/login" method="post">
+          <p>
+            Tunnus: <br />
+            <input type="text" name="username" required />
+          </p>
+          <p>
+            Salasana: <br />
+            <input type="password" name="password" required />
+          </p>
+          <p>
+            <input type="submit" value="Kirjaudu" />
+          </p>
+          <p>
+            <input
+              type="button"
+              value="Rekisteröidy"
+              onclick="location.href='/register'"
+            />
+          </p>
+        </form>
+      </article>
+      {% endif %}
+    </main>
   </body>
 </html>
