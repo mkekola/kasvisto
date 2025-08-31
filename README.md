@@ -48,24 +48,20 @@ $ flask run
 
 ## Sovelluksen käyttäminen
 
-- Etusivulla löytyy linkit käyttäjätunnuksen luontiin, kirjautumiseen sekä kasvien etsimisiseen.
-
-  ![etusivu](static/images/kasvisto-index.jpg)
-
+- Etusivulla löytyy linkit käyttäjätunnuksen luontiin, kirjautumiseen sekä kasvien etsimisiseen ja listaus lisätyistä kasveista.
 - Kirjautumisen jälkeen käyttäjä voi lisätä, muokata ja poistaa kasveja sekä lisätä hoitotietoja.
-- Käyttäjä voi hakea lisättyjä kasveja ja niiden hoitotietoja myös kirjautuneena.
+- Käyttäjä voi hakea lisättyjä kasveja myös kirjautuneena.
+- Käyttäjä sivulla näkyvät lisätyt käyttäjän lisäämät kasvit ja lukumäärä.
+- Kasvin sivulla näkyvät kasvin tiedot, hoitotiedot ja kuvat.
+- Kommentit näkyvät kasvin sivulla, jossa käyttäjä voi lisätä omia kommenttejaan.
 
-  ![kirjautunut](static/images/kasvisto-kirjautunut.jpg)
-
-- Käyttäjä sivulla näkyvät lisätyt käyttäjän lisäämät kasvit
-
-  ![kasvit](static/images/kasvisto-kayttaja.jpg)
 
 ## Sovelluksen toiminnot
 
 - [x] Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 - [x] Käyttäjä pystyy lisämään, muokkaamaan ja poistamaan kasveja sovelluksessa.
 - [x] Käyttäjä pystyy lisäämään kasveille hoitotietoja esim. kastelut.
-- [ ] Käyttäjä pysyy lisäämään kuvia kasveihin.
+- [x] Käyttäjä pystyy lisäämään kuvia kasveihin.
 - [x] Käyttäjä näkee sovellukseen lisätyt kasvit sekä niiden hoitotiedot.
 - [x] Käyttäjä pystyy hakemaan lisäämiään kasveja sekä niiden hoitotietoja.
+- [x] Käyttäjä pystyy lisäämään kommentteja omiin ja muiden lisäämiin kasveihin.
