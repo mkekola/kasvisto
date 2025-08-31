@@ -2,21 +2,35 @@
 <html>
   <head>
     <title>Käyttäjä {{ user.username }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>Käyttäjä {{ user.username }}</h1>
-    <p>
-        Käyttäjällä on yhteensä {{ plants | count }} kasvia.
-    </p>
-    <h2>Kasvit</h2>
-    <ul>
-      {% for plant in plants %}
-      <li>
-        <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    <p><a href="/">Takaisin</a></p>
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
+
+    <main class="container">
+      <div class="page-header">
+        <h1>Käyttäjä {{ user.username }}</h1>
+        <div class="page-header_actions">
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </div>
+      </div>
+
+      <article class="card card--small">
+        <p>Käyttäjällä on yhteensä {{ plants | count }} kasvia.</p>
+        <h2>Kasvit</h2>
+        <ul>
+          {% for plant in plants %}
+          <li>
+            <a class="plant__link" href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        <p><a class="btn btn--secondary" href="/">Takaisin</a></p>
+      </article>
+    </main>
   </body>
 </html>
