@@ -2,29 +2,41 @@
 <html>
   <head>
     <title>Etsi kasvi</title>
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
 
   <body>
-    <h1>Etsi kasvi🪴</h1>
-    <form action="/find_plant" method="get">
-        <p>
-            Hakusana: <input type=""text" name="query" value="{{ query }}">
-        </p>
-        <input type="submit" value="Etsi">
-    </form>
+    <header class="hero hero--small">
+      <img class="hero__img" src="/static/images/hero.png" alt="Kasvisto" />
+      <div class="hero__overlay"></div>
+    </header>
 
-    <p>
-        <a href="/">Takaisin etusivulle</a>
-    </p>
-    {% if query %}
+    <main class="container">
+      <div class="page-header">
+        <h1>Etsi kasvi</h1>
+      </div>
+
+      <article class="card card--small">
+        <form action="/find_plant" method="get">
+          <label for="query" class="label">Hakusana:</label>
+          <input type="text" id="query" name="query" value="{{ query }}" />
+          <input class="btn" type="submit" value="Etsi" />
+        </form>
+
+        <p>
+          <a class="btn btn--secondary" href="/">Takaisin etusivulle</a>
+        </p>
+        {% if query %}
         <h2>Hakutulokset</h2>
         <ul>
-            {% for plant in results %}
-                <li>
-                    <a href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
-                </li>
-            {% endfor %}
+          {% for plant in results %}
+          <li>
+            <a class="plant__link" href="/plant/{{ plant.id }}">{{ plant.plant_name }}</a>
+          </li>
+          {% endfor %}
         </ul>
-    {% endif %}
+        {% endif %}
+      </article>
+    </main>
   </body>
 </html>
